@@ -48,7 +48,6 @@ artifacts/
 *_p.c
 *_i.h
 *.ilk
-*.meta
 *.obj
 *.pch
 *.pdb
@@ -240,3 +239,13 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+
+#unity
+[Oo]bj
+[Tt]emp
+[Ll]ibrary
+
+
+#vs
+*.csproj
+*.sln
