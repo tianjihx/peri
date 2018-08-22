@@ -14,10 +14,12 @@ namespace Peri
 
         public void Draw()
         {
+
             GUIStyle style = new GUIStyle(EditorStyles.miniButton);
             if (GUI.Button(new Rect(Position, Size), Text))
             {
-                OnClick?.Invoke();
+                if (OnClick != null)
+                    OnClick();
             }
         }
     }
