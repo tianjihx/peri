@@ -11,6 +11,7 @@ namespace Peri
         public virtual Point RealPosition { get; set; }
         public virtual int Width { get; set; }
         public virtual int Height { get; set; }
+        public abstract string TypeName { get; }
 
         public abstract void Draw();
 

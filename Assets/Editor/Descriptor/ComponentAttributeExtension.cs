@@ -7,7 +7,7 @@ namespace Peri.Description
 {
     public static class ComponentAttributeExtension
     {
-        public static DAttribute[] GetAttributes(this Component component)
+        public static Dictionary<string, DAttributeValue> GetAttributes(this Component component)
         {
             if (component is Button)
                 return (component as Button).GetAttributes();
@@ -19,22 +19,22 @@ namespace Peri.Description
         }
         
         //RendererCompontent
-        public static DAttribute[] GetAttributes(this Button button)
+        public static Dictionary<string, DAttributeValue> GetAttributes(this Button button)
         {
-            AttributeTool.Add("Text", button.Text);
-            return AttributeTool.ToArray();
+            DAttributeTool.Set("Text", button.Text);
+            return DAttributeTool.CutDict();
         }
 
-        public static DAttribute[] GetAttributes(this Label label)
+        public static Dictionary<string, DAttributeValue> GetAttributes(this Label label)
         {
-            AttributeTool.Add("Text", label.Text);
-            return AttributeTool.ToArray();
+            DAttributeTool.Set("Text", label.Text);
+            return DAttributeTool.CutDict();
         }
 
         //Canvas
-        public static DAttribute[] GetAttributes(this Canvas canvas)
+        public static Dictionary<string, DAttributeValue> GetAttributes(this Canvas canvas)
         {
-            return AttributeTool.ToArray();
+            return DAttributeTool.CutDict();
         }
     }
 }

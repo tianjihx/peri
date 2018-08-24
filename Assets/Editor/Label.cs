@@ -11,6 +11,14 @@ namespace Peri
     {
         public string Text { get; set; }
 
+        public override string TypeName
+        {
+            get
+            {
+                return "Label";
+            }
+        }
+
         public override void Draw()
         {
 

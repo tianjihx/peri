@@ -8,6 +8,14 @@ namespace Peri
     {
         public string Text { get; set; }
 
+        public override string TypeName
+        {
+            get
+            {
+                return "Button";
+            }
+        }
+
         public delegate void OnClickDelegate();
         public event OnClickDelegate OnClick;
 

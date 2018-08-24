@@ -13,7 +13,15 @@ namespace Peri
         public Container RootContainer { get; set; }
         public Point MinSize { get; set; }
         public Point MaxSize { get; set; }
-        public string Name { get; set; }
+        public string Title { get; set; }
+
+        public override string TypeName
+        {
+            get
+            {
+                return "Window";
+            }
+        }
 
         public Window()
         {

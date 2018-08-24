@@ -24,6 +24,9 @@ namespace Peri.Description
         public Point StartPosition;
         public int Width;
         public int Height;
+        public string Title;
+        public Point MinSize;
+        public Point MaxSize;
     }
 
     [Serializable]
@@ -34,15 +37,15 @@ namespace Peri.Description
         public Point RealPosition;
         public int Width;
         public int Height;
+        public bool IsContainer;
         public DComponent[] Children;
-        public DAttribute[] Attributes;
+        public Dictionary<string, DAttributeValue> Attributes;
         public DEvent[] Events;
     }
     
     [Serializable]
-    public class DAttribute
+    public class DAttributeValue
     {
-        public string Name;
         public string StringValue;
         public int IntValue;
         public float FloatValue;
@@ -58,48 +61,50 @@ namespace Peri.Description
 
     
 
-    public class AttributeTool
+    public class DAttributeTool
     {
-        private static List<DAttribute> attributeList = new List<DAttribute>();
+        private static Dictionary<string, DAttributeValue> attrDict = new Dictionary<string, DAttributeValue>();
 
-        public static void Add(string name, string stringValue, int intValue, float floatValue, bool boolValue)
+        public static void Set(string name, string stringValue, int intValue, float floatValue, bool boolValue)
         {
-            DAttribute attr = new DAttribute()
+            DAttributeValue attr = new DAttributeValue()
             {
-                Name = name,
                 StringValue = stringValue,
                 IntValue = intValue,
                 FloatValue = floatValue,
                 BoolValue = boolValue
             };
-            attributeList.Add(attr);
+            if (attrDict.ContainsKey(name))
+                attrDict[name] = attr;
+            else
+                attrDict.Add(name, attr);
         }
 
-        public static void Add(string name, string value)
+        public static void Set(string name, string value)
         {
-            Add(name, value, 0, 0f, false);
+            Set(name, value, 0, 0f, false);
         }
 
-        public static void Add(string name, int value)
+        public static void Set(string name, int value)
         {
-            Add(name, null, value, 0f, false);
+            Set(name, null, value, 0f, false);
         }
 
-        public static void Add(string name, float value)
+        public static void Set(string name, float value)
         {
-            Add(name, null, 0, value, false);
+            Set(name, null, 0, value, false);
         }
 
-        public static void Add(string name, bool value)
+        public static void Set(string name, bool value)
         {
-            Add(name, null, 0, 0f, value);
+            Set(name, null, 0, 0f, value);
         }
 
-        public static DAttribute[] ToArray()
+        public static Dictionary<string, DAttributeValue> CutDict()
         {
-            var attrs = attributeList.ToArray();
-            attributeList.Clear();
-            return attrs;
+            var rtn = attrDict;
+            attrDict = new Dictionary<string, DAttributeValue>();
+            return rtn;
         }
     }
 
