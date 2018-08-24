@@ -7,17 +7,16 @@ using UnityEngine;
 
 namespace Peri
 {
-    public class Label
+    public class Label : RendererComponent
     {
-        public Vector2 Position { get; set; }
-        public Vector2 Size { get; set; }
         public string Text { get; set; }
 
-        public void Draw()
+        public override void Draw()
         {
 
             GUIStyle style = new GUIStyle(EditorStyles.label);
-            GUI.Label(new Rect(Position, Size), Text, style);
+            GUI.Label(new Rect(PositionVector, SizeVector), Text, style);
         }
+
     }
 }

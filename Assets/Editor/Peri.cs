@@ -11,9 +11,7 @@ namespace Peri
         [MenuItem("Window/窗口编辑器")]
         static void DoIt()
         {
-            Rect wr = new Rect(0, 0, 300, 300);
-            var window = GetWindowWithRect<UICreator>(wr, true, "窗口编辑器");
-            window.Show();
+            
         }
 
         public UICreator()
@@ -23,29 +21,16 @@ namespace Peri
 
         private void ComponentInitialization()
         {
-            button = new Button();
-            button.Position = new Vector2(100, 100);
-            button.Size = new Vector2(50, 50);
-            button.Text = "click me";
-            button.OnClick += () => { EditorUtility.DisplayDialog("adsf", "ad", "123"); };
-
-            label = new Label();
-            label.Position = new Vector2(100, 200);
-            label.Size = new Vector2(100, 20);
-            label.Text = "测试";
+            Window w = new Window();
+            w.StartPosition = new Point(200, 200);
+            w.Width = 640;
+            w.Height = 480;
         }
 
 
         private void OnGUI()
         {
             
-            switch (Event.current.type)
-            {
-                case EventType.MouseDrag:
-                    var pos = Event.current.mousePosition;
-                    Repaint();
-                    break;
-            }
 
         }
     }

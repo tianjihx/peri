@@ -1,22 +1,21 @@
 ﻿using UnityEngine;
 using UnityEditor;
+using System;
 
 namespace Peri
 {
-    public class Button
+    public class Button : RendererComponent
     {
-        public Vector2 Position { get; set; }
-        public Vector2 Size { get; set; }
         public string Text { get; set; }
 
         public delegate void OnClickDelegate();
         public event OnClickDelegate OnClick;
 
-        public void Draw()
+        public override void Draw()
         {
 
             GUIStyle style = new GUIStyle(EditorStyles.miniButton);
-            if (GUI.Button(new Rect(Position, Size), Text))
+            if (GUI.Button(new Rect(PositionVector, SizeVector), Text))
             {
                 if (OnClick != null)
                     OnClick();
