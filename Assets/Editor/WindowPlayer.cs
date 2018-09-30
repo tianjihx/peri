@@ -9,31 +9,51 @@ using UnityEngine;
 
 namespace Peri
 {
-    public class WindowPlayer
+    public class WindowPlayer : EditorWindow
     {
-        private WindowPlayerCore core;
-        Window currentWindow;
+        private Window renderWindow;
 
         public WindowPlayer(Window window)
         {
-            currentWindow = window;
+            renderWindow = window;
+            
         }
 
-        public void Run()
+        private static void RenderWindow_OnRepaint(Widget widget, EventArgs arg1)
         {
-            if (core != null)
-                return;
-            core = ScriptableObject.CreateInstance<WindowPlayerCore>() as WindowPlayerCore;
-            core.RenderWindow = currentWindow;
-            core.position = new Rect(currentWindow.StartPosition.x, currentWindow.StartPosition.y, currentWindow.Width, currentWindow.Height);
-            core.minSize = TypeTools.Point2Vector2(currentWindow.MinSize);
-            core.maxSize = TypeTools.Point2Vector2(currentWindow.MaxSize);
-            
-            core.titleContent = new GUIContent(currentWindow.Title);
-            core.ShowUtility();
-            core.Focus();
-            core.Show();
+            Debug.Log("重绘");
         }
+
+        public static WindowPlayer New(Window w)
+        {
+            WindowPlayer player = CreateInstance<WindowPlayer>();
+            player.renderWindow = w;
+            player.renderWindow.OnRepaint += (widget, arg) =>
+            {
+                Debug.Log("重绘");
+                player.Repaint();
+            };
+            player.position = new Rect(w.StartPosition.x, w.StartPosition.y, w.Width, w.Height);
+            player.minSize = TypeTools.Point2Vector2(w.MinSize);
+            player.maxSize = TypeTools.Point2Vector2(w.MaxSize);
+
+            player.titleContent = new GUIContent(w.Title);
+            player.ShowUtility();
+            player.Focus();
+            return player;
+        }
+
+        public void OnGUI()
+        {
+            if (renderWindow != null)
+            {
+                renderWindow.UpdateDraw();
+                Repaint();
+            }
+            
+            
+        }
+
 
         //public void LoadFromJson()
         //{
@@ -53,16 +73,6 @@ namespace Peri
         //}
 
 
-        public class WindowPlayerCore : EditorWindow
-        {
-            public Window RenderWindow { private get; set; }
-            private void OnGUI()
-            {
-                if (RenderWindow != null)
-                {
-                    RenderWindow.Draw();
-                }
-            }
-        }
+
     }
 }

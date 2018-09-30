@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEngine;
 
 namespace Peri.Description
 {
@@ -9,12 +10,12 @@ namespace Peri.Description
     public class DWindow
     {
         public DWindowInfo WindowInfo;
-        public DComponent RootContainer;
+        public DWidget RootContainer;
 
         public DWindow()
         {
             WindowInfo = new DWindowInfo();
-            RootContainer = new DComponent();
+            RootContainer = new DWidget();
         }
     }
 
@@ -30,15 +31,15 @@ namespace Peri.Description
     }
 
     [Serializable]
-    public class DComponent
+    public class DWidget
     {
         public string Type;
         public Point Position;
-        public Point RealPosition;
+        //public Point RealPosition;
         public int Width;
         public int Height;
         public bool IsContainer;
-        public DComponent[] Children;
+        public DWidget[] Children;
         public Dictionary<string, DAttributeValue> Attributes;
         public DEvent[] Events;
     }

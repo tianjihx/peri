@@ -7,9 +7,9 @@ using UnityEngine;
 
 namespace Peri
 {
-    public class Label : RendererComponent
+    public class Label : RendererWidget
     {
-        public string Text { get; set; }
+        private string text;
 
         public override string TypeName
         {
@@ -19,12 +19,45 @@ namespace Peri
             }
         }
 
-        public override void Draw()
+        
+        public string Text
         {
-
-            GUIStyle style = new GUIStyle(EditorStyles.label);
-            GUI.Label(new Rect(PositionVector, SizeVector), Text, style);
+            get { return text; }
+            set
+            {
+                text = value;
+                if (IsAutoSize)
+                {
+                    AutoSize();
+                }
+            }
         }
 
+        public Label() : base()
+        {
+            IsAutoSize = true;
+            Name = TypeName;
+        }
+
+        protected override void SetStyle()
+        {
+            Style = new GUIStyle(EditorStyles.label);
+        }
+
+        public override void Draw()
+        {
+            //Debug.Log(RealPosition);
+            Style.Draw(Rect, Text, false, true, false, false);
+            //GUI.Label(new Rect(RealPosition, Size), Text, style);
+            //UnityEngine.Event e = UnityEngine.Event.current;
+        }
+
+        protected override void AutoSize()
+        {
+            Width = (int)EditorStyles.label.CalcSize(new GUIContent(text)).x;
+            Height = (int)EditorStyles.label.CalcSize(new GUIContent(text)).y;
+        }
+
+        
     }
 }

@@ -7,7 +7,7 @@ namespace Peri.Description
 {
     public static class ComponentAttributeExtension
     {
-        public static Dictionary<string, DAttributeValue> GetAttributes(this Component component)
+        public static Dictionary<string, DAttributeValue> GetAttributes(this Widget component)
         {
             if (component is Button)
                 return (component as Button).GetAttributes();

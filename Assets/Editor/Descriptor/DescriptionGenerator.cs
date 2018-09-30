@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Peri.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,13 +16,13 @@ namespace Peri.Description
             this.window = window;
         }
 
-        private void TranverseRoot(Container currentContainer, DComponent d)
+        private void TranverseRoot(Container currentContainer, DWidget d)
         {
-            d.Children = new DComponent[currentContainer.Children.Count];
+            d.Children = new DWidget[currentContainer.Childrens.Length];
             int i = 0;
-            foreach (var component in currentContainer.Children)
+            foreach (var component in currentContainer.Childrens)
             {
-                DComponent newD = GenerateFromComponent(component);
+                DWidget newD = GenerateFromComponent(component);
                 if (newD.IsContainer)
                 {
                     TranverseRoot(component as Container, newD);
@@ -46,13 +47,13 @@ namespace Peri.Description
             TranverseRoot(window.RootContainer, dwindow.RootContainer);
         }
 
-        private DComponent GenerateFromComponent(Component component)
+        private DWidget GenerateFromComponent(Widget component)
         {
-            DComponent d = new DComponent
+            DWidget d = new DWidget
             {
                 Type = component.TypeName,
-                Position = component.Position,
-                RealPosition = component.RealPosition,
+                Position = component.Position.ToPoint(),
+                //RealPosition = component.RealPosition.ToPoint(),
                 Width = component.Width,
                 Height = component.Height,
                 IsContainer = false,

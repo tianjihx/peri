@@ -44,12 +44,12 @@ namespace Peri
             };
             Label l = new Label
             {
-                Position = new Point(100, 100),
+                Position = new Vector2(100, 100),
                 Width = 200,
                 Height = 50,
                 Text = "这是测试的文本"
             };
-            w.RootContainer.Children.Add(l);
+            w.RootContainer.Add(l);
             w.RootContainer.Relayout();
             DescriptionGenerator dg = new DescriptionGenerator(w);
             dg.Generate();
@@ -73,8 +73,8 @@ namespace Peri
             parser.Parse();
             var w = parser.GetWindow();
             if (Window2_instance == null)
-                Window2_instance = new WindowPlayer(w);
-            Window2_instance.Run();
+                Window2_instance = WindowPlayer.New(w);
+            Window2_instance.Show();
         }
     }
 }

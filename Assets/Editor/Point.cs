@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEngine;
 
 namespace Peri
 {
@@ -43,6 +44,16 @@ namespace Peri
         public static float Distance(Point a, Point b)
         {
             return (float)Math.Sqrt(Math.Pow(a.x - b.x, 2) + Math.Pow(a.y - b.y, 2)); 
+        }
+
+        public override string ToString()
+        {
+            return string.Format("({0},{1})", x, y);
+        }
+
+        public Vector2 ToVector2()
+        {
+            return new Vector2(x, y);
         }
 
     }

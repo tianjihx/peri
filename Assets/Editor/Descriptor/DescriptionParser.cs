@@ -36,26 +36,26 @@ namespace Peri.Description
             TranverseRoot(dwindow.RootContainer, window.RootContainer);
         }
 
-        public void TranverseRoot(DComponent d, Container container)
+        public void TranverseRoot(DWidget d, Container container)
         {
             Debug.Log(d.Type);
             foreach (var dchild in d.Children)
             {
-                Component component = ParseFromDescription(dchild);
+                Widget component = ParseFromDescription(dchild);
                 Debug.Log(dchild.Type);
                 //如果是容器
                 if (dchild.IsContainer)
                 {
                     TranverseRoot(dchild, component as Container);
                 }
-                container.Children.Add(component);
+                container.Add(component);
             }
 
         }
 
-        private Component ParseFromDescription(DComponent d)
+        private Widget ParseFromDescription(DWidget d)
         {
-            Component c;
+            Widget c;
             switch (d.Type)
             {
                 case "Canvas": c = ParseCanvas(d); break;
@@ -67,20 +67,20 @@ namespace Peri.Description
             return c;
         }
 
-        private Canvas ParseCanvas(DComponent d)
+        private Canvas ParseCanvas(DWidget d)
         {
             Canvas canvas = new Canvas();
             return canvas;
         }
 
-        private Button ParseButton(DComponent d)
+        private Button ParseButton(DWidget d)
         {
             Button button = new Button();
             button.Text = d.Attributes["Text"].StringValue;
             return button;
         }
 
-        private Label ParseLabel(DComponent d)
+        private Label ParseLabel(DWidget d)
         {
             Debug.Log("parse label");
             Label label = new Label();
@@ -88,10 +88,10 @@ namespace Peri.Description
             return label;
         }
 
-        private void SetCommonAttribute(Component c, DComponent d)
+        private void SetCommonAttribute(Widget c, DWidget d)
         {
-            c.Position = d.Position;
-            c.RealPosition = d.RealPosition;
+            c.Position = d.Position.ToVector2();
+            //c.RealPosition = d.RealPosition.ToVector2();
             c.Width = d.Width;
             c.Height = d.Height;
         }
